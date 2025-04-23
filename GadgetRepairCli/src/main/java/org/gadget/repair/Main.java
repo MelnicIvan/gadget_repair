@@ -37,6 +37,8 @@ public class Main {
                     3. Create Repair Order
                     4. Update Order Status
                     5. View Orders by Customer
+                    6. Show available gadgets
+                    7. Show all orders
                     0. Exit
                     """);
 
@@ -119,6 +121,41 @@ public class Main {
                                     order.getGadget().getName(),
                                     order.getGadget().getRepairStatus(),
                                     order.getProblemDescription());
+                        }
+                    }
+                }
+
+                case 6 -> {
+                    System.out.println("Available gadgets:");
+                    List<Gadget> gadgets = gadgetService.getAllGadgets();
+                    if (gadgets.isEmpty()) {
+                        System.out.println("No gadgets found.");
+                    } else {
+                        for (Gadget gadget : gadgets) {
+                            System.out.printf("ID: %s, Name: %s, Type: %s, Status: %s%n",
+                                    gadget.getId(),
+                                    gadget.getName(),
+                                    gadget.getGadgetType(),
+                                    gadget.getRepairStatus());
+                        }
+                    }
+                }
+
+                case 7 -> {
+                    System.out.println("All repair orders:");
+                    List<RepairOrder> allOrders = orderService.getAllOrders();
+                    if (allOrders.isEmpty()) {
+                        System.out.println("No repair orders found.");
+                    } else {
+                        for (RepairOrder order : allOrders) {
+                            System.out.printf("Order ID: %s, Gadget: %s, Customer: %s %s, Status: %s, Problem: %s, Date: %s%n",
+                                    order.getId(),
+                                    order.getGadget().getName(),
+                                    order.getCustomer().getFirstName(),
+                                    order.getCustomer().getLastName(),
+                                    order.getGadget().getRepairStatus(),
+                                    order.getProblemDescription(),
+                                    order.getLocalDateTime());
                         }
                     }
                 }
